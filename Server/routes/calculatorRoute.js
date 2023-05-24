@@ -7,6 +7,10 @@ router.get('/add', (req, res) => {
     calculatorController.addNumbers(req, res)
 })
 
+router.get('/sub', (req, res) => {
+    calculatorController.subNumbers(req, res)
+})
+
 module.exports = router;
 
 

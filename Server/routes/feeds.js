@@ -2,6 +2,24 @@ const express = require('express');
 const router = express.Router ()    //pulling out function from express package
 
 router.get ('/feed', (req, res) => {
+    console.log(req.query)
+    if (req.query.username === "test") {
+        res.status(200)
+        res.json({
+            // [
+            //     {
+            //         postId: 1,
+            //         title: "This is the first post",
+            //         content: "This is a comment in the post"
+            //     },
+            //     {
+            //         postId: 12,
+            //         title: "This is the second post",
+            //         content: "This is a comment in the post"
+            //     }
+            // ]
+        })
+    }
     res.send('List the users main feed')
 })
 
