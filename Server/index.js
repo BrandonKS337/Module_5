@@ -1,5 +1,16 @@
-const express = require('express')      //imports package we just installed
-const app = express()                   //sets express to variable called app
+const express = require('express')      //tells app we need this package
+const app = express()                   //sets express to variable called app aka extracts functions from package
+
+const swaggerUi = require('swagger-ui-express');  //imports the package      //this is the package
+swaggerDocument = require('./swagger.json');  //points to swagger.json file  //this is the settings for that package ask about this.
+
+
+app.use(
+    '/api-docs',
+    swaggerUi.serve,      // this uses the method from the package
+    swaggerUi.setup(swaggerDocument)  //passes in swagger.json to "setup" method.
+);
+
 const port = 3000                       //3000 popular for development work
 const testRoute = require('./routes/myTestRoute.js')
 const feedRoute = require('./routes/feeds.js')
