@@ -11,6 +11,14 @@ router.get('/sub', (req, res) => {
     calculatorController.subNumbers(req, res)
 })
 
+router.get('/div', (req, res) => {
+    calculatorController.subNumbers(req, res)
+})
+
+router.get('/prod', (req, res) => {
+    calculatorController.subNumbers(req, res)
+})
+
 module.exports = router;
 
 
