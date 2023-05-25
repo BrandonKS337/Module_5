@@ -4,6 +4,8 @@ const app = express(); //sets express to variable called app aka extracts functi
 const swaggerUi = require("swagger-ui-express"); //imports the package      //this is the package
 const swaggerDocument = require("./swagger.json"); //points to swagger.json file  //this is the settings for that package ask about this.
 
+
+
 app.use(
   "/api-docs",   // this creates the new endpoint "/api-docs" //aka the target to aim for when routing through 
   swaggerUi.serve, // this uses the method from the package
@@ -14,6 +16,8 @@ const port = 3000; //3000 popular for development work
 const testRoute = require("./routes/myTestRoute.js");
 const feedRoute = require("./routes/feeds.js");
 const calculatorRoute = require("./routes/calculatorRoute.js");
+const authRoute = require("./routes/auth.js")
+
 
 const ports = [3001, 3002, 3003]; //adding additional ports to server
 const servers = [];
@@ -46,10 +50,13 @@ ports.forEach(() => {
 // })
 
 */
+app.use(express.json());
+
 app.use("/", express.static("public"));
 app.use("/mytest", testRoute);
 app.use("/loggedin", feedRoute);
 app.use("/calculator", calculatorRoute);
+app.use("/auth", authRoute)
 
 //continually listen on this port for traffic, send to routes defined above
 app.listen(port, () => {
