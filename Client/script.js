@@ -21,7 +21,8 @@ for (let i = 0; i < btn.length; i++) {
           expression[j] === "+" ||
           expression[j] === "-" ||
           expression[j] === "*" ||
-          expression[j] === "/"
+          expression[j] === "/" ||
+          expression[j] === "^"
         ) {
           operator = expression[j];
         }
@@ -30,7 +31,7 @@ for (let i = 0; i < btn.length; i++) {
       // console.log(value.innerHTML, "operator:", operator);
       const nums = value.innerHTML.split(operator);
       console.log(nums);
-      toServer(nums); /// 1111 NOTES by Robert: pass in operator to  toServer func 11111
+      toServer(nums, operator); /// 1111 NOTES by Robert: pass in operator to  toServer func 11111
       // value.innerHTML = eval(value.innerHTML);
     } else {
       if (this.innerHTML === "Clear") {
@@ -42,8 +43,54 @@ for (let i = 0; i < btn.length; i++) {
   });
   /////consider switch statement instead of nested ifs//////
 }
-function toServer(nums) { /// 2222 NOTES by Robert: fetch based on operator 2222 of ex: if operator = + will fetch to add route if subtract => subt route etc etc
-  fetch(`http://localhost:3000/calculator/add?num1=${nums[0]}&num2=${nums[1]}`)
+
+//////////////////////prior to fetch determine route by operator ///////////////////
+
+function toServer(nums, operator) {
+  /// 2222 NOTES by Robert: fetch based on operator 2222 of ex: if operator = + will fetch to add route if subtract => subt route etc etc
+  // 1. if operator is +,-,/,*
+  // then send to server along this route
+  // ex
+  // 2. if operator === + use add route
+  // 3. set add route = to new const route = add;  similar to line 16
+  // 4. use route inside the fetch
+  let route = "";
+  // if (operator === "+") {
+  //   route = "add";
+  // } else if (operator === "-") {
+  //   route = "sub";
+  // } else if (operator === "/") {
+  //   route = "div";
+  // } else if (operator === "*") {
+  //   route = "prod";
+  // }
+
+  ////same result as the if statement above. swapped to switch statement for application practice///
+  switch (operator) {
+    case "+":
+      route = "add";
+      break;
+    case "-":
+      route = "sub";
+      break;
+    case "/":
+      route = "div";
+      break;
+    case "*":
+      route = "prod";
+      break;
+    case "^":
+      route = "expo";
+      break;
+
+    default:
+      break;
+  }
+
+  ////// GOAL: Modify fetch call to take in new variable that can be various operators ///////
+  fetch(
+    `http://localhost:3000/calculator/${route}?num1=${nums[0]}&num2=${nums[1]}`
+  )
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -51,14 +98,14 @@ function toServer(nums) { /// 2222 NOTES by Robert: fetch based on operator 2222
       document.getElementById("value").innerHTML = data.result;
     });
 }
+// 1. change /calculator/________?num1=etc to broader function that will take in the operator and push fetch through once that is in using nu1 and num2
+// 2.
 
 // try to rewrite for when click = extract num1/num2 and run them through fetch on server side
-
 
 //for ex 3 slide 37 take into account  /// NOTES by Robert: in order to help solve for the request on slide 37
 // Time stamp 6PM - 7:30PM  follow over to calc routes.js
 
-
 // DO NOT USE eval() because security requestIdleCallback. String = security risk
 
- /// NOTES by Robert:
+/// NOTES by Robert:
