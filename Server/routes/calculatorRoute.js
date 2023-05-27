@@ -3,6 +3,12 @@ const router = express.Router(); //pulling out function from express package
 
 const calculatorController = require('../controller/calculatorController')
 
+///route created for exponent/"power" as test and practice for library portion of mod 5 ex 5 //////
+router.get('/expo', (req, res) => {
+    calculatorController.expoNums(req, res)
+})
+
+
 router.get('/add', (req, res) => {
     calculatorController.addNumbers(req, res)
 })

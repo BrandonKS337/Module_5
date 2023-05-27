@@ -1,6 +1,21 @@
 const Calculator = require("../libraries/calculator.js"); //typed out
 const myCalc = new Calculator();
 
+const testlib = require("../libraries/test.js"); //typed out
+const mytestCalc = new testlib();
+
+const expoNums = (req, res) => {
+  console.log(req.query);
+  let num1 = parseInt(req.query.num1)
+  let num2 = parseInt(req.query.num2);
+
+
+  let sum = mytestCalc.expo(num1, num2)
+  console.log("expo", sum)
+  res.status(200).json({result: sum})
+}
+
+
 const addNumbers = (req, res) => {
   console.log(req.query);
   let num1 = parseInt(req.query.num1); //change our query number into an integer
@@ -12,7 +27,7 @@ const addNumbers = (req, res) => {
   res.status(200).json({ result: sum }); //included to show server result A-ok
 };
 
-//adding second route to accomodate for subtraction
+//adding second route to accommodate for subtraction
 const subNumbers = (req, res) => {
   console.log(req.query);
   let num1 = parseInt(req.query.num1); //change our query number into an integer
@@ -55,4 +70,5 @@ module.exports = {
   divNumbers,
   prodNumbers, 
   testFunction,
+  expoNums
 };
